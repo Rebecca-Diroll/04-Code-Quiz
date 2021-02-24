@@ -29,7 +29,6 @@ function startGame() {
 
 function timeRemaining() {
     timerNumberEl.classList.remove("hide");
-//    currentScore.classList.remove("hide");
 
     console.log(timeLeft);
     
@@ -79,7 +78,7 @@ function selectAnswer(e) {
     setStatusClass(document.body, correct);
 
     if(shuffledQuestions.length > currentQuestionIndex + 1) {
-        nextButton.classList.remove("hide");
+//        nextButton.classList.remove("hide");
     } else {
         startButton.innerText = "Restart";
         startButton.classList.remove("hide");
@@ -91,6 +90,7 @@ function setStatusClass(element, correct) {
     clearStatusClass(element);
     if (correct) {
         element.classList.add("correct");
+        nextButton.classList.remove("hide");
     } else {
         element.classList.add("wrong");
         console.log("wrong");
