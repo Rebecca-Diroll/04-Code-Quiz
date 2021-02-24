@@ -13,6 +13,7 @@ const setupGameEl = document.getElementById("setup-game-container");
 const controlsEl = document.getElementById("controls");
 const endGameEl = document.getElementById("end-game-container");
 
+//var endTimeScore;
 var timeLeft = 60;
 
 let shuffledQuestions, currentQuestionIndex;
@@ -42,7 +43,8 @@ function timeRemaining() {
         if (timeLeft <= 0) {
             clearInterval(quizTimer);
             document.getElementById("count-down").innerHTML = "Time Is Up!";
-            gameOver();
+            endTimeScore = 0;
+//            gameOver();
         } else {
             document.getElementById("count-down").innerHTML = timeLeft + " seconds remaining";
         }
@@ -63,7 +65,6 @@ function showQuestion(question) {
         button.classList.add("btn");
         if (answer.correct) {
             button.dataset.correct = answer.correct
-//            score => score + 10;
         }
         button.addEventListener("click", selectAnswer)
         answerButtonsElement.appendChild(button);
@@ -87,6 +88,7 @@ function selectAnswer(e) {
 
     } else {
         startButton.classList.remove("hide");
+//        var endTimeScore = timeLeft;
         gameOver();
     }
 }
@@ -169,15 +171,17 @@ const questions = [
 // End Game Script
 
 function gameOver() {
- //   setupGameEl.classList.add("hide");
+
     console.log("Game over!");
     timerNumberEl.classList.add("hide");
-    var endTimeScore = timeLeft;
-    console.log(endTimeScore);
     controlsEl.classList.add("hide");
     questionContainerElement.classList.add("hide");
     endGameEl.classList.remove("hide");
+   
+    var endTimeScore = timeLeft;       
+    console.log(endTimeScore);
 
-
+    document.getElementById("current-score").innerHTML += "Your score is: " + endTimeScore;
 
 }
+
