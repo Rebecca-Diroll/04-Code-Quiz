@@ -23,6 +23,10 @@ body {
     font-size: 1.3em;
 }
 
+body.neutral {
+    --hue: var(--hue-neutral);
+}
+
 body.correct {
     --hue: var(--hue-correct);
 }

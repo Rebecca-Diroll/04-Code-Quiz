@@ -36,7 +36,7 @@ function timeRemaining() {
         if (timeLeft <= 0) {
             clearInterval(quizTimer);
             document.getElementById("count-down").innerHTML = "Time Is Up!";
-
+            gameOver();
         } else {
             document.getElementById("count-down").innerHTML = timeLeft + " seconds remaining";
         }
@@ -57,7 +57,7 @@ function showQuestion(question) {
         button.classList.add("btn");
         if (answer.correct) {
             button.dataset.correct = answer.correct
-            score => score + 10;
+//            score => score + 10;
         }
         button.addEventListener("click", selectAnswer)
         answerButtonsElement.appendChild(button);
@@ -78,10 +78,10 @@ function selectAnswer(e) {
     setStatusClass(document.body, correct);
 
     if(shuffledQuestions.length > currentQuestionIndex + 1) {
-//        nextButton.classList.remove("hide");
+
     } else {
-        startButton.innerText = "Restart";
         startButton.classList.remove("hide");
+        gameOver();
     }
 }
 
@@ -159,3 +159,20 @@ const questions = [
         ]
     }
 ]
+
+const controlEl = document.getElementById("controls");
+
+function gameOver() {
+    questionContainerElement.classList.add("hide");
+    console.log("Game over!");
+    timerNumberEl.classList.add("hide");
+    var endTimeScore = timeLeft;
+    console.log(endTimeScore);
+    controlEl.classList.add("hide");
+    
+    element.classList.remove("correct");
+    element.classList.remove("wrong");
+    element.classList.add("neutral");
+
+
+}
