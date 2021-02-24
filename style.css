@@ -44,7 +44,7 @@ body.wrong {
     box-shadow: 0 0 10px 2px;
 }
 
-.code-quiz {
+.code-quiz, .game-over {
     color: navy;
     font-size: 3rem;
     display: flex;

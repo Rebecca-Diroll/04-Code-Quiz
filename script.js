@@ -1,3 +1,6 @@
+// Start Game Script
+
+const startQuizEl = document.getElementById("start-game-container")
 const codeQuiz = document.getElementById("code-quiz");
 const timerNumberEl = document.getElementById("count-down");
 const currentScoreEl = document.getElementById("current-score");
@@ -6,6 +9,9 @@ const nextButton = document.getElementById("next-btn");
 const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtonsElement = document.getElementById("answer-buttons");
+const setupGameEl = document.getElementById("setup-game-container");
+const controlsEl = document.getElementById("controls");
+const endGameEl = document.getElementById("end-game-container");
 
 var timeLeft = 60;
 
@@ -160,19 +166,18 @@ const questions = [
     }
 ]
 
-const controlEl = document.getElementById("controls");
+// End Game Script
 
 function gameOver() {
-    questionContainerElement.classList.add("hide");
+ //   setupGameEl.classList.add("hide");
     console.log("Game over!");
     timerNumberEl.classList.add("hide");
     var endTimeScore = timeLeft;
     console.log(endTimeScore);
-    controlEl.classList.add("hide");
-    
-    element.classList.remove("correct");
-    element.classList.remove("wrong");
-    element.classList.add("neutral");
+    controlsEl.classList.add("hide");
+    questionContainerElement.classList.add("hide");
+    endGameEl.classList.remove("hide");
+
 
 
 }
