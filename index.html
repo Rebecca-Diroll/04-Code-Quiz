@@ -4,18 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/style.css">
-    <link rel="javascript" href="assets/script.js">
+    <link href="https://fonts.googleapis.com/css2?family=Stick&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <script defer src="script.js"></script>
     <title>Code Quiz</title>
 </head>
 <body>
     <div class="container">
-        <div id="home" class="flex-column flex-center">
-            <h1>Are You Ready?</h1>
-            <a href="/game.html" class="btn">Play</a>
-            <a href="/highscores.html" id="highscore-btn"
-            class="btn">High Scores</a>
+        <div class="code-quiz" id="code-quiz">Code Quiz!</div>
+
+
+        <div id="question-container" class="hide">
+            <div class = question id="question">Question</div>
+            <div id="answer-buttons" class="btn-grid">
+                <button class="btn">Answer A</button>
+                <button class="btn">Answer B</button>
+                <button class="btn">Answer C</button>
+                <button class="btn">Answer D</button>
+            </div>
         </div>
+        <div class="controls">
+            <button id="start-btn" class="start-btn btn">Start</button>
+            <button id="next-btn" class="next-btn btn hide">Next</button>
+        </div>
+
+        <div class="count-down hide" id="count-down"></div>
+
+        <div class="current-score" id="current-score"></div>
     </div>
 </body>
 </html>
