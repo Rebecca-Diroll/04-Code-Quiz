@@ -33,7 +33,13 @@
             <div class="end-game" id="end-game">Game Over!</div>
             <div class="current-score" id="current-score"></div>
             <br>
-            <div class="initials" id="initials"></div>
+            <form>
+                <div id="record-score">Enter your initials!</div>
+                <input type="text" name="name" id="initials" 
+                placeholder="Enter your initials.">
+                <button class="btn" id="saveScoreBtn" type="submit" 
+                onclick="saveHighScore(event)" disabled>Save</button>
+            </form>
         </div>
 
  

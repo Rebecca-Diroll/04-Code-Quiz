@@ -98,6 +98,7 @@ body.wrong {
 
 .count-down {
     font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-top: 10px;
 }
 
 .current-score {
