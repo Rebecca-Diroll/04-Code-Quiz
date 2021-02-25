@@ -6,14 +6,24 @@ const timerNumberEl = document.getElementById("count-down");
 const currentScoreEl = document.getElementById("current-score");
 const startButton = document.getElementById("start-btn");
 const nextButton = document.getElementById("next-btn");
+const playAgainButton = document.getElementById("play-again-btn");
+const highScoresButton = document.getElementById("high-scores-btn");
 const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtonsElement = document.getElementById("answer-buttons");
 const setupGameEl = document.getElementById("setup-game-container");
 const controlsEl = document.getElementById("controls");
-const endGameEl = document.getElementById("end-game-container");
+const endGameContainer = document.getElementById("end-game-container");
 
-//var endTimeScore;
+const initialsEl = document.getElementById("initials");
+const saveScoreBtn = document.getElementById("save-score-btn");
+
+const highScoresList = document.getElementById("high-scores-list");
+const highScoresContainer = document.getElementById("high-scores-container");
+
+const mostRecentScore = localStorage.getItem("mostRecentScore");
+
+
 var timeLeft = 60;
 
 let shuffledQuestions, currentQuestionIndex;
@@ -43,7 +53,7 @@ function timeRemaining() {
         if (timeLeft <= 0) {
             clearInterval(quizTimer);
             document.getElementById("count-down").innerHTML = "Time Is Up!";
-            endTimeScore = 0;
+            finalScore = 0;
 //            gameOver();
         } else {
             document.getElementById("count-down").innerHTML = timeLeft + " seconds remaining";
@@ -88,7 +98,7 @@ function selectAnswer(e) {
 
     } else {
         startButton.classList.remove("hide");
-//        var endTimeScore = timeLeft;
+//        var finalScore = timeLeft;
         gameOver();
     }
 }
@@ -176,12 +186,62 @@ function gameOver() {
     timerNumberEl.classList.add("hide");
     controlsEl.classList.add("hide");
     questionContainerElement.classList.add("hide");
-    endGameEl.classList.remove("hide");
+    endGameContainer.classList.remove("hide");
    
-    var endTimeScore = timeLeft;       
-    console.log(endTimeScore);
+    var finalScore = timeLeft;       
+    console.log(finalScore);
 
-    document.getElementById("current-score").innerHTML += "Your score is: " + endTimeScore;
+    document.getElementById("current-score").innerHTML += "Your score is: " + finalScore;
 
+    localStorage.setItem("mostRecentScore", finalScore);
 }
 
+function saveCurrentScore() {
+    var gameScore = {
+        initialsEl: initials.value,
+        currentScoreEl: finalScore
+    };
+
+    localStorage.setItem("gameScore", JSON.stringify(gameScore));
+    console.log(gameScore);
+}
+
+// High Scores List
+
+saveHighScore = e => {
+
+    endGameEl.classList.add("hide");
+    highScoresContainer.classList.remove("hide");
+
+    playAgainButton.addEventListener("click", startGame);
+    highScoresButton.addEventListener("click", viewHighScores;
+
+    e.preventDefault();
+
+    const score = {
+        score: mostRecentScore,
+        person: initialsEl.value
+    };
+
+    highScores.push(score);
+    highScores.sort( (a,b) => {
+        return b.score - a.score;
+    })
+
+    highScores.splice(5);
+
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+    window.location.assign("/");
+
+    console.log(highScores);
+}
+
+/*
+viewHighScores() {
+    const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+    console.log(highScores);
+    
+    const MAX_HIGH_SCORES = 5;
+    console.log(highScores);
+}
+*/

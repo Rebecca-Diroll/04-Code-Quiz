@@ -84,7 +84,7 @@ body.wrong {
     --hue: var(--hue-wrong);
 }
 
-.start-btn, .next-btn {
+.start-btn, .next-btn, .save-score-btn {
     font-size: 1.5rem;
     font-weight: bold;
     padding: 10px 20px;
@@ -105,6 +105,17 @@ body.wrong {
     display: flex;
     font-size: 1.5em;
     justify-content: center;
+}
+
+input {
+    font-size: 1em;
+    margin: 3px 3px 3px 3px;
+    padding: 2px 2px 2px 2px;
+    width: 10rem;
+}
+
+#save-score-btn {
+    margin-left: 20px;
 }
 
 .hide {

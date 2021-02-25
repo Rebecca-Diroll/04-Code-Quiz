@@ -33,18 +33,29 @@
             <div class="end-game" id="end-game">Game Over!</div>
             <div class="current-score" id="current-score"></div>
             <br>
+            <hr>
             <form>
                 <div id="record-score">Enter your initials!</div>
                 <input type="text" name="name" id="initials" 
-                placeholder="Enter your initials.">
-                <button class="btn" id="saveScoreBtn" type="submit" 
+                placeholder="Enter Initials">
+                <button class="btn" id="save-score-btn" type="submit" 
                 onclick="saveHighScore(event)" disabled>Save</button>
             </form>
+            <hr>
+            <div id="playAgain-highScores-btn" class="btn-grid">
+                <button id="play-again-btn" class="play-again-btn btn">Play Again</button>   
+ <!--               <a href="index.html" class="btn">Play Again</a>                             -->
+                <button id="high-scores-btn" class="high-scores-btn btn">High Scores</button>
+            </div>
         </div>
 
- 
+        <div id="high-scores-container" class="hide">
+            <div class="high-scores" id="high-scores">High Scores>
+                <ul id="high-scores-list"></ul>
+                <button id="play-again-btn" class="play-again-btn btn">Play Again</button>
+            </div>
+        </div>
         
-    
     </div>
 
 </body>
