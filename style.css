@@ -36,7 +36,7 @@ body.wrong {
 }
 
 .container, .start-screen-container, .question-screen-container,
-.game-over-container, .high-scores-container {
+.game-over-container, .high-scores-container, .time-is-up-container {
     width: 800px;
     max-width: 80%;
     background-color: whitesmoke;

@@ -1,4 +1,3 @@
-// Start Game Script
 const startButton = document.querySelector("#start-btn");
 const nextButton = document.getElementById("next-btn");
 const playAgainButton = document.getElementById("play-again-btn");
@@ -8,6 +7,7 @@ const startScreenContainerEl = document.querySelector("#start-screen-container")
 const questionScreenContainer = document.querySelector("#question-screen-container");
 const gameOverContainer = document.querySelector("#game-over-container");
 const highScoresContainer = document.querySelector("#high-scores-container");
+const timeIsUpContainer = document.querySelector("#time-is-up-container");
 
 const timerNumberEl = document.getElementById("count-down");
 const currentScoreEl = document.getElementById("current-score");
@@ -28,6 +28,8 @@ nextButton.addEventListener("click", () => {
     setNextQuestion();
 })
 
+// Start Game Script
+
 function startGame() {
     timeRemaining();
     shuffledQuestions = questions.sort(() => Math.random() - .5);
@@ -47,7 +49,7 @@ function timeRemaining() {
             clearInterval(quizTimer);
             document.getElementById("count-down").innerHTML = "Time Is Up!";
             finalScore = 0;
-//            gameOver();
+            timeIsUp();
         } else {
             document.getElementById("count-down").innerHTML = timeLeft + " seconds remaining";
         }
@@ -91,7 +93,6 @@ function selectAnswer(e) {
 
     } else {
         startButton.classList.remove("hide");
-//        var finalScore = timeLeft;
         gameOver();
     }
 }
@@ -118,11 +119,14 @@ function clearStatusClass(element) {
 
 // End Game Script
 
+function timeIsUp() {
+    questionScreenContainer.classList.add("hide");
+    timeIsUpContainer.classList.remove("hide");
+}
+
 function gameOver() {
 
     console.log("Game over!");
-    timerNumberEl.classList.add("hide");
-    startScreenContainerEl.classList.add("hide");
     questionScreenContainer.classList.add("hide");
     gameOverContainer.classList.remove("hide");
    
@@ -184,6 +188,8 @@ viewHighScores() {
 }
 */
 
+
+// Questions Array
 
 const questions = [
     {
