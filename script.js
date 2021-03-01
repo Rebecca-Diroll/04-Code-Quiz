@@ -1,28 +1,22 @@
 // Start Game Script
-
-const startQuizEl = document.getElementById("start-game-container")
-const codeQuiz = document.getElementById("code-quiz");
-const timerNumberEl = document.getElementById("count-down");
-const currentScoreEl = document.getElementById("current-score");
-const startButton = document.getElementById("start-btn");
+const startButton = document.querySelector("#start-btn");
 const nextButton = document.getElementById("next-btn");
 const playAgainButton = document.getElementById("play-again-btn");
 const highScoresButton = document.getElementById("high-scores-btn");
-const questionContainerElement = document.getElementById("question-container");
+
+const startScreenContainerEl = document.querySelector("#start-screen-container");
+const questionScreenContainer = document.querySelector("#question-screen-container");
+const gameOverContainer = document.querySelector("#game-over-container");
+const highScoresContainer = document.querySelector("#high-scores-container");
+
+const timerNumberEl = document.getElementById("count-down");
+const currentScoreEl = document.getElementById("current-score");
 const questionElement = document.getElementById("question");
 const answerButtonsElement = document.getElementById("answer-buttons");
-const setupGameEl = document.getElementById("setup-game-container");
-const controlsEl = document.getElementById("controls");
-const endGameContainer = document.getElementById("end-game-container");
-
 const initialsEl = document.getElementById("initials");
 const saveScoreBtn = document.getElementById("save-score-btn");
-
 const highScoresList = document.getElementById("high-scores-list");
-const highScoresContainer = document.getElementById("high-scores-container");
-
 const mostRecentScore = localStorage.getItem("mostRecentScore");
-
 
 var timeLeft = 60;
 
@@ -36,11 +30,10 @@ nextButton.addEventListener("click", () => {
 
 function startGame() {
     timeRemaining();
-    startButton.classList.add("hide");
-    codeQuiz.classList.add("hide");
     shuffledQuestions = questions.sort(() => Math.random() - .5);
     currentQuestionIndex = 0;
-    questionContainerElement.classList.remove("hide");
+    startScreenContainerEl.classList.add("hide");
+    questionScreenContainer.classList.remove("hide");
     setNextQuestion();
 }
 
@@ -121,6 +114,77 @@ function clearStatusClass(element) {
     element.classList.remove("wrong");
 }
 
+
+
+// End Game Script
+
+function gameOver() {
+
+    console.log("Game over!");
+    timerNumberEl.classList.add("hide");
+    startScreenContainerEl.classList.add("hide");
+    questionScreenContainer.classList.add("hide");
+    gameOverContainer.classList.remove("hide");
+   
+    var finalScore = timeLeft;       
+    console.log(finalScore);
+
+    document.getElementById("current-score").innerHTML += "Your score is: " + finalScore;
+
+    localStorage.setItem("mostRecentScore", finalScore);
+}
+
+function saveCurrentScore() {
+    var gameScore = {
+        initialsEl: initials.value,
+        currentScoreEl: finalScore
+    };
+
+    localStorage.setItem("gameScore", JSON.stringify(gameScore));
+    console.log(gameScore);
+}
+
+// High Scores List
+
+saveHighScore = e => {
+
+    endGameEl.classList.add("hide");
+    highScoresContainer.classList.remove("hide");
+
+    playAgainButton.addEventListener("click", startGame);
+    highScoresButton.addEventListener("click", viewHighScores);
+
+    e.preventDefault();
+
+    const score = {
+        score: mostRecentScore,
+        person: initialsEl.value
+    };
+
+    highScores.push(score);
+    highScores.sort( (a,b) => {
+        return b.score - a.score;
+    })
+
+    highScores.splice(5);
+
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+    window.location.assign("/");
+
+    console.log(highScores);
+}
+
+/*
+viewHighScores() {
+    const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+    console.log(highScores);
+    
+    const MAX_HIGH_SCORES = 5;
+    console.log(highScores);
+}
+*/
+
+
 const questions = [
     {
         question: "What tag is used to define a hyperlink, or link to another page?",
@@ -177,71 +241,3 @@ const questions = [
         ]
     }
 ]
-
-// End Game Script
-
-function gameOver() {
-
-    console.log("Game over!");
-    timerNumberEl.classList.add("hide");
-    controlsEl.classList.add("hide");
-    questionContainerElement.classList.add("hide");
-    endGameContainer.classList.remove("hide");
-   
-    var finalScore = timeLeft;       
-    console.log(finalScore);
-
-    document.getElementById("current-score").innerHTML += "Your score is: " + finalScore;
-
-    localStorage.setItem("mostRecentScore", finalScore);
-}
-
-function saveCurrentScore() {
-    var gameScore = {
-        initialsEl: initials.value,
-        currentScoreEl: finalScore
-    };
-
-    localStorage.setItem("gameScore", JSON.stringify(gameScore));
-    console.log(gameScore);
-}
-
-// High Scores List
-
-saveHighScore = e => {
-
-    endGameEl.classList.add("hide");
-    highScoresContainer.classList.remove("hide");
-
-    playAgainButton.addEventListener("click", startGame);
-    highScoresButton.addEventListener("click", viewHighScores;
-
-    e.preventDefault();
-
-    const score = {
-        score: mostRecentScore,
-        person: initialsEl.value
-    };
-
-    highScores.push(score);
-    highScores.sort( (a,b) => {
-        return b.score - a.score;
-    })
-
-    highScores.splice(5);
-
-    localStorage.setItem("highScores", JSON.stringify(highScores));
-    window.location.assign("/");
-
-    console.log(highScores);
-}
-
-/*
-viewHighScores() {
-    const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-    console.log(highScores);
-    
-    const MAX_HIGH_SCORES = 5;
-    console.log(highScores);
-}
-*/

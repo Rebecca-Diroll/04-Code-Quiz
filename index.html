@@ -10,10 +10,16 @@
     <title>Code Quiz</title>
 </head>
 <body>
-    <div class="setup-game-container container" id="setup-game-container">
-        <div class="code-quiz" id="code-quiz">Code Quiz!</div>
 
-        <div id="question-container" class="hide">
+    <div class="start-screen-container" id="start-screen-container">
+        <div class="code-quiz" id="code-quiz">Code Quiz!</div>
+        <div class="controls">
+            <button class="start-btn btn" id="start-btn">Start</button>
+        </div>
+    </div>
+
+    <div class="question-screen-container hide" id="question-screen-container">
+        <div id="question-container">
             <div class = question id="question">Question</div>
             <div id="answer-buttons" class="btn-grid">
                 <button class="btn">Answer A</button>
@@ -22,40 +28,39 @@
                 <button class="btn">Answer D</button>
             </div>
         </div>
-        <div class="controls" id="controls">
-            <button id="start-btn" class="start-btn btn">Start</button>
+        <div class="controls">
             <button id="next-btn" class="next-btn btn hide">Next</button>
         </div>
-
         <div class="count-down hide" id="count-down"></div>
+    </div>
 
-        <div id="end-game-container" class="hide">
-            <div class="end-game" id="end-game">Game Over!</div>
-            <div class="current-score" id="current-score"></div>
-            <br>
-            <hr>
-            <form>
-                <div id="record-score">Enter your initials!</div>
-                <input type="text" name="name" id="initials" 
-                placeholder="Enter Initials">
-                <button class="btn" id="save-score-btn" type="submit" 
-                onclick="saveHighScore(event)" disabled>Save</button>
-            </form>
-            <hr>
-            <div id="playAgain-highScores-btn" class="btn-grid">
-                <button id="play-again-btn" class="play-again-btn btn">Play Again</button>   
- <!--               <a href="index.html" class="btn">Play Again</a>                             -->
-                <button id="high-scores-btn" class="high-scores-btn btn">High Scores</button>
-            </div>
-        </div>
-
-        <div id="high-scores-container" class="hide">
-            <div class="high-scores" id="high-scores">High Scores>
-                <ul id="high-scores-list"></ul>
-                <button id="play-again-btn" class="play-again-btn btn">Play Again</button>
-            </div>
+    <div class="game-over-container hide" id="game-over-container">
+        
+        <div class="end-game" id="end-game">Game Over!</div>
+        <div class="current-score" id="current-score"></div>
+        <br>
+        <hr>
+        <form>
+            <div id="record-score">Enter your initials!</div>
+            <input type="text" name="name" id="initials" 
+            placeholder="Enter Initials">
+            <button class="btn" id="save-score-btn" type="submit" 
+            onclick="saveHighScore(event)" disabled>Save</button>
+        </form>
+        <hr>
+        <div id="playAgain-highScores-btn" class="btn-grid">
+            <button id="play-again-btn" class="play-again-btn btn">Play Again</button>   
+<!--         <a href="index.html" class="btn">Play Again</a>                             -->
+            <button id="high-scores-btn" class="high-scores-btn btn">High Scores</button>
         </div>
         
+    </div>
+
+    <div class="high-scores-container hide" id="high-scores-container">
+        <div class="high-scores" id="high-scores">High Scores>
+            <ul id="high-scores-list"></ul>
+            <button id="play-again-btn" class="play-again-btn btn">Play Again</button>
+        </div>
     </div>
 
 </body>

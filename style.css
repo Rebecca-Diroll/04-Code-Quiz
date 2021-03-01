@@ -35,7 +35,8 @@ body.wrong {
     --hue: var(--hue-wrong);
 }
 
-.container {
+.container, .start-screen-container, .question-screen-container,
+.game-over-container, .high-scores-container {
     width: 800px;
     max-width: 80%;
     background-color: whitesmoke;
