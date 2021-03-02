@@ -19,18 +19,36 @@ const highScoresList = document.getElementById("high-scores-list");
 const mostRecentScore = localStorage.getItem("mostRecentScore");
 
 var timeLeft = 60;
+var quizTimer;
 
 let shuffledQuestions, currentQuestionIndex;
 
 startButton.addEventListener("click", startGame);
+
 nextButton.addEventListener("click", () => {
     currentQuestionIndex++;
     setNextQuestion();
-})
+});
+
+
+
+playAgainButton.addEventListener("click", () => {
+    timeIsUpContainer.classList.add("hide");
+    gameOverContainer.classList.add("hide");
+    startScreenContainerEl.classList.remove("hide");
+    var timeLeft = 60;
+    startGame();
+});
+
+highScoresButton.addEventListener("click", () => {
+    timeIsUpContainer.classList.add("hide");
+    highScoresContainer.classList.remove("hide");
+});
 
 // Start Game Script
 
 function startGame() {
+
     timeRemaining();
     shuffledQuestions = questions.sort(() => Math.random() - .5);
     currentQuestionIndex = 0;
@@ -41,14 +59,11 @@ function startGame() {
 
 function timeRemaining() {
     timerNumberEl.classList.remove("hide");
-
-    console.log(timeLeft);
-    
     var quizTimer = setInterval(function() {
         if (timeLeft <= 0) {
-            clearInterval(quizTimer);
             document.getElementById("count-down").innerHTML = "Time Is Up!";
             finalScore = 0;
+            clearInterval(quizTimer);
             timeIsUp();
         } else {
             document.getElementById("count-down").innerHTML = timeLeft + " seconds remaining";
@@ -92,7 +107,7 @@ function selectAnswer(e) {
     if(shuffledQuestions.length > currentQuestionIndex + 1) {
 
     } else {
-        startButton.classList.remove("hide");
+//        startButton.classList.remove("hide");
         gameOver();
     }
 }
@@ -116,7 +131,6 @@ function clearStatusClass(element) {
 }
 
 
-
 // End Game Script
 
 function timeIsUp() {
@@ -125,8 +139,6 @@ function timeIsUp() {
 }
 
 function gameOver() {
-
-    console.log("Game over!");
     questionScreenContainer.classList.add("hide");
     gameOverContainer.classList.remove("hide");
    
@@ -136,6 +148,8 @@ function gameOver() {
     document.getElementById("current-score").innerHTML += "Your score is: " + finalScore;
 
     localStorage.setItem("mostRecentScore", finalScore);
+    clearInterval(quizTimer);
+
 }
 
 function saveCurrentScore() {
