@@ -1,8 +1,10 @@
 const startButton = document.querySelector("#start-btn");
 const nextButton = document.getElementById("next-btn");
-const playAgainButton = document.getElementById("play-again-btn");
-const highScoresButton = document.getElementById("high-scores-btn");
-
+const playAgainButton1 = document.getElementById("play-again-1");
+const playAgainButton2 = document.getElementById("play-again-2");
+const playAgainButton3 = document.getElementById("play-again-3");
+const highScoresButton1 = document.getElementById("high-scores-1");
+const highScoresButton2 = document.getElementById("high-scores-2");
 const startScreenContainerEl = document.querySelector("#start-screen-container");
 const questionScreenContainer = document.querySelector("#question-screen-container");
 const gameOverContainer = document.querySelector("#game-over-container");
@@ -30,25 +32,44 @@ nextButton.addEventListener("click", () => {
     setNextQuestion();
 });
 
+playAgainButton1.addEventListener("click", playAgain);
+playAgainButton2.addEventListener("click", playAgain);
+playAgainButton3.addEventListener("click", playAgain);
 
-
-playAgainButton.addEventListener("click", () => {
+function playAgain() {
     timeIsUpContainer.classList.add("hide");
     gameOverContainer.classList.add("hide");
+    highScoresContainer.classList.add("hide");
     startScreenContainerEl.classList.remove("hide");
     var timeLeft = 60;
     startGame();
-});
+}
 
-highScoresButton.addEventListener("click", () => {
+// playAgainButton.addEventListener("click", () => {
+//    timeIsUpContainer.classList.add("hide");
+//    gameOverContainer.classList.add("hide");
+//    startScreenContainerEl.classList.remove("hide");
+//    var timeLeft = 60;
+//    startGame();
+//     console.log("hello");
+// });
+
+highScoresButton1.addEventListener("click", highScores);
+highScoresButton2.addEventListener("click", highScores);
+
+function highScores() {
     timeIsUpContainer.classList.add("hide");
     highScoresContainer.classList.remove("hide");
-});
+}
+
+// highScoresButton.addEventListener("click", () => {
+//     timeIsUpContainer.classList.add("hide");
+//     highScoresContainer.classList.remove("hide");
+// });
 
 // Start Game Script
 
 function startGame() {
-
     timeRemaining();
     shuffledQuestions = questions.sort(() => Math.random() - .5);
     currentQuestionIndex = 0;
@@ -149,7 +170,6 @@ function gameOver() {
 
     localStorage.setItem("mostRecentScore", finalScore);
     clearInterval(quizTimer);
-
 }
 
 function saveCurrentScore() {
