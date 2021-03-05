@@ -56,6 +56,7 @@ highScoresButton1.addEventListener("click", highScores);
 highScoresButton2.addEventListener("click", highScores);
 
 function highScores() {
+    gameOverContainer.classList.add("hide");
     timeIsUpContainer.classList.add("hide");
     highScoresContainer.classList.remove("hide");
 }
