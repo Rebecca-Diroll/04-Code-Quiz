@@ -1,3 +1,5 @@
+// Constants
+
 const startButton = document.querySelector("#start-btn");
 const nextButton = document.getElementById("next-btn");
 const playAgainButton1 = document.getElementById("play-again-1");
@@ -20,10 +22,14 @@ const saveScoreBtn = document.getElementById("save-score-btn");
 const highScoresList = document.getElementById("high-scores-list");
 const mostRecentScore = localStorage.getItem("mostRecentScore");
 
+// Variables
+
 var timeLeft = 60;
 var quizTimer;
 
 let shuffledQuestions, currentQuestionIndex;
+
+// Add event listeners to buttons
 
 startButton.addEventListener("click", startGame);
 
@@ -41,18 +47,10 @@ function playAgain() {
     gameOverContainer.classList.add("hide");
     highScoresContainer.classList.add("hide");
     startScreenContainerEl.classList.remove("hide");
-    var timeLeft = 60;
+    timeLeft = 60;
+//    clearInterval(quizTimer);
     startGame();
 }
-
-// playAgainButton.addEventListener("click", () => {
-//    timeIsUpContainer.classList.add("hide");
-//    gameOverContainer.classList.add("hide");
-//    startScreenContainerEl.classList.remove("hide");
-//    var timeLeft = 60;
-//    startGame();
-//     console.log("hello");
-// });
 
 highScoresButton1.addEventListener("click", highScores);
 highScoresButton2.addEventListener("click", highScores);
@@ -62,36 +60,42 @@ function highScores() {
     highScoresContainer.classList.remove("hide");
 }
 
-// highScoresButton.addEventListener("click", () => {
-//     timeIsUpContainer.classList.add("hide");
-//     highScoresContainer.classList.remove("hide");
-// });
+var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
+function saveScore(e) {
+    e.preventDefault();
+    var gameScore = {
+        initials: initialsEl.value, finalScore: timeLeft
+    }
+    highScores.push(gameScore);
+    localStorage.setItem("highScores", JSON.stringify(highScores))
+}
+
+saveScoreBtn.addEventListener("click", saveScore);
 
 // Start Game Script
 
 function startGame() {
-    timeRemaining();
+    timerNumberEl.classList.remove("hide");
+    clearInterval(quizTimer);
+    quizTimer = setInterval(function() {
+        console.log(timeLeft);
+        if (timeLeft > 0) {
+            timeLeft--;
+            document.getElementById("count-down").innerHTML = timeLeft + " seconds remaining";
+        } else {
+            clearInterval(quizTimer);
+            document.getElementById("count-down").innerHTML = "Time Is Up!";
+            timeIsUp();
+        }
+    }, 1000);
+
     shuffledQuestions = questions.sort(() => Math.random() - .5);
     currentQuestionIndex = 0;
     startScreenContainerEl.classList.add("hide");
     questionScreenContainer.classList.remove("hide");
     setNextQuestion();
 }
-
-function timeRemaining() {
-    timerNumberEl.classList.remove("hide");
-    var quizTimer = setInterval(function() {
-        if (timeLeft <= 0) {
-            document.getElementById("count-down").innerHTML = "Time Is Up!";
-            finalScore = 0;
-            clearInterval(quizTimer);
-            timeIsUp();
-        } else {
-            document.getElementById("count-down").innerHTML = timeLeft + " seconds remaining";
-        }
-        timeLeft -= 1;
-    }, 1000);
-};
 
 function setNextQuestion() {
     resetState();
@@ -128,20 +132,17 @@ function selectAnswer(e) {
     if(shuffledQuestions.length > currentQuestionIndex + 1) {
 
     } else {
-//        startButton.classList.remove("hide");
         gameOver();
     }
 }
 
 function setStatusClass(element, correct) {
-    console.log(element);
     clearStatusClass(element);
     if (correct) {
         element.classList.add("correct");
         nextButton.classList.remove("hide");
     } else {
         element.classList.add("wrong");
-        console.log("wrong");
         timeLeft = timeLeft - 5;
     }
 }
@@ -151,15 +152,17 @@ function clearStatusClass(element) {
     element.classList.remove("wrong");
 }
 
-
 // End Game Script
 
 function timeIsUp() {
     questionScreenContainer.classList.add("hide");
     timeIsUpContainer.classList.remove("hide");
+//    clearInterval(quizTimer);
 }
 
 function gameOver() {
+    clearInterval(quizTimer);
+
     questionScreenContainer.classList.add("hide");
     gameOverContainer.classList.remove("hide");
    
@@ -169,47 +172,38 @@ function gameOver() {
     document.getElementById("current-score").innerHTML += "Your score is: " + finalScore;
 
     localStorage.setItem("mostRecentScore", finalScore);
-    clearInterval(quizTimer);
-}
-
-function saveCurrentScore() {
-    var gameScore = {
-        initialsEl: initials.value,
-        currentScoreEl: finalScore
-    };
-
-    localStorage.setItem("gameScore", JSON.stringify(gameScore));
-    console.log(gameScore);
+    timeIsUpContainer.classList.add("hide");
 }
 
 // High Scores List
 
 saveHighScore = e => {
-
-    endGameEl.classList.add("hide");
+    startScreenContainerEl.classList.add("hide");
+    gameOverContainer.classList.add("hide");
+    timeIsUpContainer.classList.add("hide");
     highScoresContainer.classList.remove("hide");
-
-    playAgainButton.addEventListener("click", startGame);
-    highScoresButton.addEventListener("click", viewHighScores);
 
     e.preventDefault();
 
-    const score = {
+    var highScoresList = JSON.parse(window.localStorage.getItem("highScoresList")) || [];
+
+    var gameScore = {
         score: mostRecentScore,
         person: initialsEl.value
     };
 
-    highScores.push(score);
-    highScores.sort( (a,b) => {
+
+    highScoresList.push(gameScore);
+
+    highScoresList.sort( (a,b) => {
         return b.score - a.score;
     })
 
-    highScores.splice(5);
+    highScoresList.splice(5);
 
-    localStorage.setItem("highScores", JSON.stringify(highScores));
-    window.location.assign("/");
-
-    console.log(highScores);
+    localStorage.setItem("highScoresList", JSON.stringify(highScoresList));
+    
+    console.log(highScoresList);
 }
 
 /*
