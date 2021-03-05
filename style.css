@@ -85,7 +85,7 @@ body.wrong {
     --hue: var(--hue-wrong);
 }
 
-.start-btn, .next-btn, .save-score-btn {
+.start-btn, .next-btn, .save-score-btn, .high-scores-btn, .play-again-btn {
     font-size: 1.5rem;
     font-weight: bold;
     padding: 10px 20px;

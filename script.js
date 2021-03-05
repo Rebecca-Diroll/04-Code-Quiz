@@ -7,6 +7,7 @@ const playAgainButton2 = document.getElementById("play-again-2");
 const playAgainButton3 = document.getElementById("play-again-3");
 const highScoresButton1 = document.getElementById("high-scores-1");
 const highScoresButton2 = document.getElementById("high-scores-2");
+const highScoresButton3 = document.getElementById("high-scores-3");
 const startScreenContainerEl = document.querySelector("#start-screen-container");
 const questionScreenContainer = document.querySelector("#question-screen-container");
 const gameOverContainer = document.querySelector("#game-over-container");
@@ -48,31 +49,52 @@ function playAgain() {
     highScoresContainer.classList.add("hide");
     startScreenContainerEl.classList.remove("hide");
     timeLeft = 60;
-//    clearInterval(quizTimer);
     startGame();
 }
 
 highScoresButton1.addEventListener("click", highScores);
 highScoresButton2.addEventListener("click", highScores);
+highScoresButton3.addEventListener("click", highScores);
 
 function highScores() {
+    startScreenContainerEl.classList.add("hide");
     gameOverContainer.classList.add("hide");
     timeIsUpContainer.classList.add("hide");
     highScoresContainer.classList.remove("hide");
+//    updateHighScoresList();
 }
+
+// Save High Scores
 
 var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
 function saveScore(e) {
     e.preventDefault();
+
     var gameScore = {
-        initials: initialsEl.value, finalScore: timeLeft
+        initials: initialsEl.value,
+        finalScore: timeLeft
     }
+
     highScores.push(gameScore);
+
+    highScores.sort( (a,b) => {
+        return b.gameScore - a.gameScore;
+    })
+    
+    highScores.splice(5);
+
     localStorage.setItem("highScores", JSON.stringify(highScores))
 }
 
 saveScoreBtn.addEventListener("click", saveScore);
+
+
+highScoresList.innerHTML = highScores.map(gameScore => {
+    return `<li class="high-scores">${gameScore.finalScore} - ${gameScore.initials}</li>`
+}).join("");
+
+
 
 // Start Game Script
 
@@ -153,12 +175,12 @@ function clearStatusClass(element) {
     element.classList.remove("wrong");
 }
 
+
 // End Game Script
 
 function timeIsUp() {
     questionScreenContainer.classList.add("hide");
     timeIsUpContainer.classList.remove("hide");
-//    clearInterval(quizTimer);
 }
 
 function gameOver() {
@@ -175,47 +197,6 @@ function gameOver() {
     localStorage.setItem("mostRecentScore", finalScore);
     timeIsUpContainer.classList.add("hide");
 }
-
-// High Scores List
-
-saveHighScore = e => {
-    startScreenContainerEl.classList.add("hide");
-    gameOverContainer.classList.add("hide");
-    timeIsUpContainer.classList.add("hide");
-    highScoresContainer.classList.remove("hide");
-
-    e.preventDefault();
-
-    var highScoresList = JSON.parse(window.localStorage.getItem("highScoresList")) || [];
-
-    var gameScore = {
-        score: mostRecentScore,
-        person: initialsEl.value
-    };
-
-
-    highScoresList.push(gameScore);
-
-    highScoresList.sort( (a,b) => {
-        return b.score - a.score;
-    })
-
-    highScoresList.splice(5);
-
-    localStorage.setItem("highScoresList", JSON.stringify(highScoresList));
-    
-    console.log(highScoresList);
-}
-
-/*
-viewHighScores() {
-    const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-    console.log(highScores);
-    
-    const MAX_HIGH_SCORES = 5;
-    console.log(highScores);
-}
-*/
 
 
 // Questions Array
