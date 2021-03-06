@@ -61,7 +61,6 @@ function highScores() {
     gameOverContainer.classList.add("hide");
     timeIsUpContainer.classList.add("hide");
     highScoresContainer.classList.remove("hide");
-//    updateHighScoresList();
 }
 
 // Save High Scores
@@ -95,14 +94,12 @@ highScoresList.innerHTML = highScores.map(gameScore => {
 }).join("");
 
 
-
 // Start Game Script
 
 function startGame() {
     timerNumberEl.classList.remove("hide");
     clearInterval(quizTimer);
     quizTimer = setInterval(function() {
-        console.log(timeLeft);
         if (timeLeft > 0) {
             timeLeft--;
             document.getElementById("count-down").innerHTML = timeLeft + " seconds remaining";
@@ -190,7 +187,6 @@ function gameOver() {
     gameOverContainer.classList.remove("hide");
    
     var finalScore = timeLeft;       
-    console.log(finalScore);
 
     document.getElementById("current-score").innerHTML += "Your score is: " + finalScore;
 
