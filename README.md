@@ -8,4 +8,3 @@ The application can be found at:  https://rebecca-diroll.github.io/04-Code-Quiz/
 
 ![Start screen](assets/start-screen.jpg)
 ![Question](assets/question.jpg)
-![Time's up](assets/times-up.jpg)
